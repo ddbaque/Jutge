@@ -5,7 +5,19 @@
 #include <queue>
 using namespace std;
 
-void mostrarCues(vector<queue<string>>, int);
+void mostrarCues(vector<queue<string>> c, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        cout << "cua " << i + 1 << ":";
+        while (not c[i].empty())
+        {
+            cout << " " << c[i].front();
+            c[i].pop();
+        }
+        cout << endl;
+    }
+}
 
 int main()
 {
@@ -13,7 +25,7 @@ int main()
 
     int n;
     cin >> n;
-
+    queue<string> sortides;
     vector<queue<string>> Colas(n);
     cin.ignore();
     for (int i = 0; i < n; i++)
@@ -26,73 +38,39 @@ int main()
             Colas[i].push(aux);
         }
     }
-
+    string s;
+    getline(cin, s);
+    while (cin >> s)
+    {
+        if (s == "SURT")
+        {
+            int x;
+            cin >> x;
+            if ((x > 0 && x <= n) and (not Colas[x - 1].empty()))
+            {
+                sortides.push(Colas[x - 1].front());
+                Colas[x - 1].pop();
+            }
+        }
+        else
+        {
+            string name;
+            cin >> name;
+            int x;
+            cin >> x;
+            if ((x > 0 && x <= n))
+                Colas[x - 1].push(name);
+        }
+    }
+    cout << "SORTIDES" << endl;
+    cout << "--------" << endl;
+    while (not sortides.empty())
+    {
+        cout << sortides.front() << endl;
+        sortides.pop();
+    }
     cout << endl;
-
+    cout << "CONTINGUTS FINALS" << endl;
+    cout << "-----------------" << endl;
     mostrarCues(Colas, n);
-
-    for (string instruccio; getline(cin, instruccio);)
-    {
-        int cnt;
-        string aux1;
-        istringstream exp(instruccio);
-        for (string aux; exp >> aux;)
-        {
-            cout << aux << endl;
-            if (aux == "ENTRA")
-            {
-                cnt = 1;
-            }
-            if (aux == "SURT")
-            {
-                cnt = 2;
-            }
-            else
-            {
-                cout << "entro" << cnt << endl;
-                if (cnt == 2)
-                {
-                    int x = stoi(aux);
-                    cout << x << endl;
-                    if ((x > 0 and x < n))
-                    {
-                        Colas[x - 1].pop();
-                        mostrarCues(Colas, n);
-                    }
-                }
-
-                else if (cnt == 1)
-                {
-                    aux1 = aux;
-                    cnt == 0;
-                }
-                else
-                {
-                    if (stoi(aux) - 1 > 0 and stoi(aux) < n)
-                    {
-                        Colas[stoi(aux) - 1].push(aux1);
-                        mostrarCues(Colas, n);
-                    }
-                }
-            }
-        }
-    }
-
-    mostrarCues(Colas, n);
-}
-
-void mostrarCues(vector<queue<string>> c, int n)
-{
-    for (int i = 0; i < n; i++)
-    {
-        cout << "cua " << i + 1 << ": ";
-        while (not c[i].empty())
-        {
-            cout << c[i].front();
-            if (c[i].size() > 1)
-                cout << " ";
-            c[i].pop();
-        }
-        cout << endl;
-    }
 }
