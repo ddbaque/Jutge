@@ -1,4 +1,4 @@
-#include "stackIOpunt.hpp"
+#include "stackIOint.hpp"
 
 ostream &operator<<(ostream &os, const stack<int> &s1)
 {
