@@ -1,40 +1,31 @@
-// Elimina majors suma anteriors en una cua
 #include <iostream>
 #include <queue>
 #include <bits/stdc++.h>
 
 using namespace std;
 
-/* queue<int> suamaAnteriors(queue<int> &c)
-{
-    queue<int> final;
-    int i = c.size(), s = 0;
-    for (int j = 0; j < i; j++)
-    {
-        int front = c.front();
-        c.pop();
-        if (front < s)
-        {
-            final.push(front);
-        }
-        s += front;
-    }
-    return final;
-} */
-
-void ef_sumaAnteriors(queue<int> &c, queue<int> &f, int &s)
+void re_sumaAnterios(queue<int> &c, queue<int> &aux, int &s)
 {
     if (not c.empty())
     {
         int front = c.front();
         c.pop();
-        if (front < s)
+        if (front <= s)
         {
-            f.push(front);
+            aux.push(front);
         }
         s += front;
-        ef_sumaAnteriors(c, f, s);
+
+        re_sumaAnterios(c, aux, s);
     }
+}
+
+queue<int> sumaAnteriors(queue<int> &c)
+{
+    queue<int> aux;
+    int s = 0;
+    re_sumaAnterios(c, aux, s);
+    return aux;
 }
 
 int main()
@@ -50,7 +41,7 @@ int main()
             int x = stoi(op);
             c.push(x);
         }
-        ef_sumaAnteriors(c, f, s);
+        f = sumaAnteriors(c);
         bool t = true;
         while (not f.empty())
         {
@@ -64,6 +55,4 @@ int main()
         }
         cout << endl;
     }
-
-    return 0;
 }

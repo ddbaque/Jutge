@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/david-denis/UPC/PRO1/Jutge/Examens'
+make: Leaving directory '/home/david-denis/UPC/PRO1/Jutge/Examens'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+
